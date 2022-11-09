@@ -53,9 +53,10 @@ async function run() {
       const id = req.params.id;
       //  console.log(id);
       const query = { id: id };
-      const user = await review.findOne(query);
+      const cursor = await review.find(query);
+      const users = await cursor.toArray();
       //console.log(user);
-      res.send(user);
+      res.send(users);
     });
   } finally {
   }
