@@ -23,9 +23,17 @@ async function run() {
 
     app.get("/services", async (req, res) => {
       const services = userCollection.collection("serviceDetails");
-
+      //3 services
       const query = {};
       const cursor = services.find(query).sort({ rating: -1 }).limit(3);
+      const users = await cursor.toArray();
+      res.send(users);
+    });
+    //allservices
+    app.get("/allservices", async (req, res) => {
+      const allservices = userCollection.collection("serviceDetails");
+
+      const cursor = allservices.find({});
       const users = await cursor.toArray();
       res.send(users);
     });
