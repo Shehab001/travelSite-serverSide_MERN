@@ -41,9 +41,20 @@ async function run() {
     app.get("/singleservice/:id", async (req, res) => {
       const singleservice = userCollection.collection("serviceDetails");
       const id = req.params.id;
-      //console.log(id);
+      //  console.log(id);
       const query = { _id: ObjectId(id) };
       const user = await singleservice.findOne(query);
+      //console.log(user);
+      res.send(user);
+    });
+    //review by service id
+    app.get("/review/:id", async (req, res) => {
+      const review = userCollection.collection("review");
+      const id = req.params.id;
+      //  console.log(id);
+      const query = { id: id };
+      const user = await review.findOne(query);
+      //console.log(user);
       res.send(user);
     });
   } finally {
