@@ -5,6 +5,7 @@ const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const port = process.env.PORT || 5000;
 
 app.use(cors());
+app.use(express.json());
 
 const uri =
   "mongodb+srv://travel-site:E9Ig2KTJZLVNZnvd@cluster0.8lf54jt.mongodb.net/?retryWrites=true&w=majority";
@@ -57,6 +58,14 @@ async function run() {
       const users = await cursor.toArray();
       //console.log(user);
       res.send(users);
+    });
+    //addreview
+    app.post("/addreview", async (req, res) => {
+      const addreview = userCollection.collection("review");
+      const user = req.body;
+      console.log(user);
+      const result = await addreview.insertOne(user);
+      res.send(result);
     });
   } finally {
   }
