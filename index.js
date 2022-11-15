@@ -63,9 +63,20 @@ async function run() {
     app.post("/addreview", async (req, res) => {
       const addreview = userCollection.collection("review");
       const user = req.body;
-      console.log(user);
+      //console.log(user);
       const result = await addreview.insertOne(user);
       res.send(result);
+    });
+    app.get("/myreview/:id", async (req, res) => {
+      const review = userCollection.collection("review");
+      console.log("hi");
+      const email = req.params.id;
+      console.log(email);
+      const query = { email: email };
+      const cursor = await review.find(query);
+      const users = await cursor.toArray();
+      //console.log(user);
+      res.send(users);
     });
   } finally {
   }
