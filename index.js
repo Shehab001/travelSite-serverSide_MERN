@@ -69,14 +69,29 @@ async function run() {
     });
     app.get("/myreview/:id", async (req, res) => {
       const review = userCollection.collection("review");
-      console.log("hi");
+      //console.log("hi");
       const email = req.params.id;
-      console.log(email);
+      //console.log(email);
       const query = { email: email };
       const cursor = await review.find(query);
       const users = await cursor.toArray();
       //console.log(user);
       res.send(users);
+    });
+    app.put("/updatereview/:id", async (req, res) => {
+      const updatereview = userCollection.collection("review");
+      const id = req.params.id;
+      const filter = { _id: ObjectId(id) };
+      const user = req.body;
+      // console.log(filter, user);
+
+      const updatedUser = {
+        $set: {
+          review: user.review,
+        },
+      };
+      const result = await updatereview.updateOne(filter, updatedUser);
+      res.send(result);
     });
   } finally {
   }
