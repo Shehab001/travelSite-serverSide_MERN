@@ -93,6 +93,24 @@ async function run() {
       const result = await updatereview.updateOne(filter, updatedUser);
       res.send(result);
     });
+
+    app.delete("/deletereview/:id", async (req, res) => {
+      const deletereview = userCollection.collection("review");
+      const id = req.params.id;
+      //console.log(id);
+      const query = { _id: ObjectId(id) };
+      const result = await deletereview.deleteOne(query);
+      //console.log(result);
+      res.send(result);
+    });
+
+    app.post("/addservice", async (req, res) => {
+      const addservice = userCollection.collection("serviceDetails");
+      const user = req.body;
+      //console.log(user);
+      const result = await addservice.insertOne(user);
+      res.send(result);
+    });
   } finally {
   }
 }
