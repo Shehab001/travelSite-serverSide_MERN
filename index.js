@@ -88,6 +88,7 @@ async function run() {
       const updatedUser = {
         $set: {
           review: user.review,
+          star: user.star,
         },
       };
       const result = await updatereview.updateOne(filter, updatedUser);
